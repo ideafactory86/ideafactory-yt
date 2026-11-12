@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>아이디어팩토리(IdeaFactory) - 유튜브 트래픽 팩토리 M 공식 배포 & 보안 센터</title>
+    <link rel="icon" type="image/png" href="./ic_launcher.png" />
+    <link rel="apple-touch-icon" href="./ic_launcher.png" />
+    <style>
+      :root {
+        --primary: #005b9e;
+        --navy: #003f70;
+        --emerald: #059669;
+        --crimson: #be123c;
+        --bg: #f1f5f9;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #475569;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic',
+          'Noto Sans KR', sans-serif;
+        background: linear-gradient(145deg, #e8f1f9 0%, #f4f7fb 100%);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 20px 16px 48px;
+        display: flex;
+        justify-content: center;
+      }
+      .container {
+        width: 100%;
+        max-width: 480px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .brand-topbar {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #ffffff;
+        border-radius: 16px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.14);
+      }
+      .brand-topbar .brand-name {
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: -0.2px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .brand-topbar .brand-tag {
+        font-size: 11px;
+        font-weight: 700;
+        background: rgba(56, 189, 248, 0.18);
+        color: #38bdf8;
+        padding: 4px 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+      }
+      .hero-card {
+        background: var(--card);
+        border-radius: 22px;
+        padding: 26px 22px;
+        box-shadow: 0 14px 34px rgba(0, 63, 112, 0.1);
+        text-align: center;
+        border: 1px solid rgba(0, 91, 158, 0.12);
+      }
+      .logo-img {
+        height: 82px;
+        width: 82px;
+        border-radius: 20px;
+        object-fit: cover;
+        margin-bottom: 12px;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #e6f2ff;
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 999px;
+        margin-bottom: 10px;
+      }
+      h1 {
+        font-size: 21px;
+        font-weight: 800;
+        color: var(--navy);
+        margin-bottom: 6px;
+      }
+      .subtitle {
+        font-size: 13.5px;
+        color: var(--muted);
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .action-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .btn-primary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 15px 18px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #005b9e 0%, #003f70 100%);
+        color: #ffffff;
+        font-size: 15.5px;
+        font-weight: 800;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(0, 91, 158, 0.25);
+      }
+      .btn-kakao-inquiry {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 14px 18px;
+        border-radius: 14px;
+        background: #fee500;
+        color: #191919;
+        border: 1.5px solid #eab308;
+        font-size: 14.5px;
+        font-weight: 800;
+        text-decoration: none;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(234, 179, 8, 0.18);
+      }
+      .btn-secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 12px;
+        background: #eef7f1;
+        color: #146c38;
+        border: 1.5px solid #9ad9b2;
+        font-size: 13.5px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .security-card {
+        background: linear-gradient(145deg, #fff1f2 0%, #ffe4e6 100%);
+        border-radius: 18px;
+        padding: 18px 20px;
+        box-shadow: 0 8px 22px rgba(190, 18, 60, 0.1);
+        border: 1.5px solid #fda4af;
+      }
+      .security-card h2 {
+        font-size: 15px;
+        font-weight: 800;
+        color: #9f1239;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .security-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-size: 12.8px;
+        color: #881337;
+        line-height: 1.55;
+      }
+      .security-list li {
+        background: rgba(255, 255, 255, 0.82);
+        padding: 10px 12px;
+        border-radius: 10px;
+        border-left: 3.5px solid #e11d48;
+      }
+      .info-card {
+        background: var(--card);
+        border-radius: 18px;
+        padding: 18px 20px;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+        border: 1px solid #e2e8f0;
+      }
+      .info-card h2 {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--navy);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .step-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 13px;
+        color: #334155;
+        line-height: 1.5;
+      }
+      .step-list li {
+        background: #f8fafc;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+      }
+      .qr-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        background: #f8fafc;
+        border-radius: 14px;
+        border: 1px dashed #cbd5e1;
+      }
+      .qr-box img {
+        width: 180px;
+        height: 180px;
+        border-radius: 10px;
+        background: #fff;
+        padding: 8px;
+      }
+      .admin-card {
+        background: #0f172a;
+        color: #f8fafc;
+        border-radius: 18px;
+        padding: 18px 20px;
+        border: 1px solid #334155;
+      }
+      .admin-card h2 {
+        font-size: 14.5px;
+        font-weight: 800;
+        color: #38bdf8;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .admin-input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #475569;
+        background: #1e293b;
+        color: #fff;
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+      .admin-btn {
+        width: 100%;
+        padding: 11px 14px;
+        border-radius: 10px;
+        border: none;
+        background: #2563eb;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        cursor: pointer;
+        margin-bottom: 8px;
+      }
+      .admin-log {
+        background: #020617;
+        border: 1px solid #1e293b;
+        border-radius: 10px;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 11.5px;
+        color: #a7f3d0;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0f172a;
+        color: #ffffff;
+        padding: 12px 20px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        display: none;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        z-index: 999;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="brand-topbar">
+        <div class="brand-name">🏢 IDEA FACTORY · 아이디어팩토리</div>
+        <span class="brand-tag">Security Shield v2.0</span>
+      </div>
+
+      <div class="hero-card">
+        <img src="./ic_launcher.png" alt="아이디어팩토리 유튜브 트래픽 팩토리 M" class="logo-img" />
+        <div>
+          <span class="badge" id="verBadge">⚡ v1.0.2 (핫패치 v103) · 원격 자동 업데이트 연동됨</span>
+        </div>
+        <h1>아이디어팩토리 유튜브 트래픽 팩토리 M</h1>
+        <p class="subtitle">
+          <strong>아이디어팩토리(IdeaFactory)</strong> 공식 제작 안드로이드 독립형 부스터<br />
+          3단계 오가닉 키워드 검색 · 인간형 엄지 궤적 스크롤 · 비행기모드 LTE/5G IP 자동 로테이션
+        </p>
+
+        <div class="action-stack">
+          <a
+            href="https://raw.githubusercontent.com/ideafactory86/yt-mobile-ota/main/yt_booster_latest.apk"
+            download="아이디어팩토리_유튜브_모바일부스터.apk"
+            class="btn-primary"
+          >
+            📥 아이디어팩토리 정식 앱(APK) 다운로드
+          </a>
+
+          <a
+            href="https://raw.githubusercontent.com/ideafactory86/yt-mobile-ota/main/pc_unlock_all.bat"
+            download="원클릭_폰권한_자동해제.bat"
+            class="btn-secondary"
+            style="border-color: #10b981; color: #34d399;"
+          >
+            💻 [PC 연결용] 원클릭 '제한된 설정'·비행기모드 1초 자동해제기 (.bat)
+          </a>
+
+          <a
+            href="https://pf.kakao.com/_NNRdn"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-kakao-inquiry"
+          >
+            💬 아이디어팩토리 문의하기 (라이선스 발급·상담)
+          </a>
+
+          <button type="button" class="btn-secondary" onclick="copyShareMessage()">
+            📋 카카오톡 공식 설치·보안 안내문구 복사하기
+          </button>
+        </div>
+      </div>
+
+      <div class="security-card">
+        <h2>🚨 불법 복제 · 무단 공유 · 위변조 강력 법적 대응 안내</h2>
+        <ul class="security-list">
+          <li>
+            <strong>1. 라이선스 입력 및 기기 고유번호(HWID) 중앙 서버 실시간 기록</strong><br />
+            본 프로그램은 <strong>아이디어팩토리 마스터보드 중앙 보안 서버</strong>와 실시간 연동됩니다.
+            모든 라이선스 키 입력 시도, 기기 고유 식별번호(HWID), 통신사 공인 IP 및 접속 일시가 중앙 서버에 자동 입력·기록됩니다.
+          </li>
+          <li>
+            <strong>2. APK 위변조 · 크랙 · 무단 복제 시 개발자에게 즉시 코드 자동 전송</strong><br />
+            APK 리패키징(SHA-256 전자서명 변조), 디컴파일, 메모리 후킹(Frida/Xposed), 디버거 연결 또는 허용 대수를 초과한 무단 복제 감지 시
+            <strong>위변조 탐지 코드(SEC-SIG-TAMPER / SEC-CLONE-LIMIT)와 해당 기기의 HWID·공인 IP·단말기 정보가 개발자 마스터보드 서버로 즉시 자동 전송</strong>됩니다.
+          </li>
+          <li>
+            <strong>3. 무관용 원칙 영구 차단 및 민·형사상 법적 조치</strong><br />
+            불법 복제 및 무단 공유 적발 시 사전 경고 없이 해당 라이선스와 연관 기기가 즉시 영구 차단되며, 저작권법 및 컴퓨터프로그램보호법 위반에 따른 민·형사상 법적 조치가 진행됩니다.
+          </li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h2>📱 스마트폰(갤럭시·공기계) 3단계 설치 방법</h2>
+        <ul class="step-list">
+          <li>
+            <strong>1단계 (앱 설치):</strong> 위 파란색 <strong>[아이디어팩토리 정식 앱(APK) 다운로드]</strong> 버튼을 터치해 파일을 열고,
+            <em>"출처를 알 수 없는 앱"</em> 안내가 뜨면 <strong>[설정 → 이 출처 허용]</strong> 후 설치합니다.
+            (Play 프로텍트 창이 뜨면 <strong>[세부정보 더보기 → 무시하고 설치]</strong> 선택)
+          </li>
+          <li>
+            <strong>2단계 (정품 라이선스 인증):</strong> 앱을 실행하고 발급받은 <strong>아이디어팩토리 정품 라이선스 키</strong>를 입력하여 기기 등록을 완료합니다.
+          </li>
+          <li>
+            <strong>3단계 (비행기모드 자동전환 &amp; '제한된 설정' 해제):</strong> 상단 <strong>[⚡ 비행기모드 권한설정]</strong> 버튼을 눌러 접근성 설정에서
+            <strong>[아이디어팩토리 비행기모드 자동전환]</strong>을 켜주시면 24시간 무인 가동이 시작됩니다.<br />
+            <span style="color: #34d399; font-size: 12.5px;">
+              💡 <strong>휴대폰에서 '제한된 설정' 안내가 뜰 때:</strong> 확인을 누른 뒤 앱 상단의 초록색 <strong>[🔓 제한해제 직행]</strong> 버튼을 누르면 앱 상세정보로 바로 이동합니다.
+              화면 우측 상단 <strong>[ ⋮ (점 3개) → 제한된 설정 허용 ]</strong>을 한 번만 눌러주시면 즉시 해제됩니다!
+            </span><br />
+            <span style="color: #fbbf24; font-size: 12.5px; display: inline-block; margin-top: 6px;">
+              💻 <strong>휴대폰에서 해제가 안 되는 경우 (PC 원클릭 1초 자동해제):</strong><br />
+              위 초록색 <strong>[💻 PC 연결용 원클릭 '제한된 설정'·비행기모드 1초 자동해제기 (.bat)]</strong> 파일을 <strong>PC에 다운로드한 뒤, 휴대폰을 PC에 USB 케이블로 연결하고 실행(더블클릭)</strong>하시면 휴대폰 터치 없이 1초 만에 제한 해제와 비행기모드 권한이 100% 자동으로 세팅됩니다!
+              <em>(※ 휴대폰 [설정 → 개발자 옵션 → USB 디버깅]을 켜고 연결 후 실행해 주세요)</em>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h2>📷 스마트폰 카메라 스캔용 QR코드</h2>
+        <div class="qr-box">
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://ideafactory86.github.io/ideafactory-yt/"
+            alt="아이디어팩토리 유튜브 트래픽 팩토리 M 설치 QR코드"
+          />
+          <span style="font-size: 12px; color: #64748b; text-align: center">
+            공기계 카메라로 스캔하면 <strong>ideafactory86.github.io/ideafactory-yt</strong> 공식 배포 센터로 즉시 연결됩니다.
+          </span>
+        </div>
+      </div>
+
+      <!-- 대표님 전용 보안 관제 & 위변조 코드 수신 테스트 콘솔 -->
+      <div class="admin-card">
+        <h2>
+          <span>🛡️ 아이디어팩토리 개발자 보안 관제 확인</span>
+          <span style="font-size: 11px; color: #94a3b8">Masterboard 연동</span>
+        </h2>
+        <div id="adminLockBox">
+          <input
+            type="password"
+            id="masterPwdInput"
+            class="admin-input"
+            placeholder="대표님 마스터 보안키 입력 시 관제 콘솔 열림"
+          />
+          <button type="button" class="admin-btn" onclick="unlockAdminConsole()">
+            🔓 보안 관제 콘솔 열기 (대표님 전용)
+          </button>
+        </div>
+        <div id="adminPanelBox" style="display: none">
+          <input
+            type="text"
+            id="testLicInput"
+            class="admin-input"
+            placeholder="검증할 라이선스 키 입력 (또는 테스트 경보 코드)"
+          />
+          <button type="button" class="admin-btn" onclick="verifyLicenseLive()">
+            🔍 마스터보드 서버 실시간 라이선스 조회
+          </button>
+          <button
+            type="button"
+            class="admin-btn"
+            style="background: #e11d48"
+            onclick="sendTestSecurityAlert()"
+          >
+            🚨 위변조·복제 감지 코드 개발자 서버 전송 테스트
+          </button>
+          <div class="admin-log" id="adminLogOutput">
+[보안 관제 준비 완료]
+• 정품 APK 서명 지문(SHA-256): 9EF750DA54E20158...B759F20B
+• 마스터보드 RPC: /rest/v1/rpc/verify_masterboard_license (정상)
+• 위변조 코드 수신 RPC: /rest/v1/rpc/submit_error_report (정상)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">설치 안내문구가 복사되었습니다! 카카오톡에 붙여넣기 하세요.</div>
+
+    <script>
+      const MANIFEST_URL =
+        'https://raw.githubusercontent.com/ideafactory86/yt-mobile-ota/main/ota_manifest.json?t=' +
+        Date.now();
+      fetch(MANIFEST_URL)
+        .then((r) => r.json())
+        .then((data) => {
+          if (data && data.apkVersionName) {
+            document.getElementById('verBadge').textContent =
+              '⚡ v' +
+              data.apkVersionName +
+              ' (핫패치 v' +
+              (data.hotpatchVersion || '최신') +
+              ') · 원격 자동 업데이트 연동됨';
+          }
+        })
+        .catch(() => {});
+
+      function copyShareMessage() {
+        const url = 'https://ideafactory86.github.io/ideafactory-yt/';
+        const msg =
+          '🚀 [아이디어팩토리 유튜브 트래픽 팩토리 M - 공식 모바일 앱 설치 안내]\n\n' +
+          '아이디어팩토리(IdeaFactory)가 공식 개발·배포하는 안드로이드 독립형 유튜브 오가닉 검색·시청·비행기모드 IP 로테이션 부스터입니다.\n\n' +
+          '👉 아이디어팩토리 공식 설치 링크: ' +
+          url +
+          '\n💬 아이디어팩토리 라이선스 발급·문의: https://pf.kakao.com/_NNRdn\n\n' +
+          '• 설치 방법: 스마트폰에서 위 링크 접속 → [아이디어팩토리 정식 앱(APK) 다운로드] → 정품 라이선스 인증 후 즉시 가동\n' +
+          '• 제한된 설정이 안 풀릴 때: PC에서 위 링크의 [💻 PC 연결용 원클릭 1초 자동해제기(.bat)]를 받아 휴대폰을 PC에 연결 후 실행하시면 1초 만에 자동 해제됩니다.\n' +
+          '• 보안 안내: 모든 라이선스 입력 및 기기 고유번호(HWID)는 중앙 서버에 실시간 기록되며, 무단 복제·위변조 시 개발자 서버로 기기 식별코드가 자동 전송되어 즉시 차단됩니다.';
+        navigator.clipboard.writeText(msg).then(() => {
+          const t = document.getElementById('toast');
+          t.style.display = 'block';
+          setTimeout(() => {
+            t.style.display = 'none';
+          }, 2600);
+        });
+      }
+
+      async function sha256Hex(str) {
+        const buf = new TextEncoder().encode(str);
+        const hash = await crypto.subtle.digest('SHA-256', buf);
+        return Array.from(new Uint8Array(hash))
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join('')
+          .toUpperCase();
+      }
+
+      async function unlockAdminConsole() {
+        const val = (document.getElementById('masterPwdInput').value || '').trim().toLowerCase();
+        const digest = await sha256Hex('IF_SHIELD_2026_V2:' + val);
+        if (digest === '84ACD1FAC309C95C414C16B82E82F8057D0B13D1A23A7A1B359B1175A6FED6A3') {
+          document.getElementById('adminLockBox').style.display = 'none';
+          document.getElementById('adminPanelBox').style.display = 'block';
+        } else {
+          alert('마스터 보안키가 일치하지 않습니다.');
+        }
+      }
+
+      const SB_URL = 'https://jpwrvnajtjogmjssryaq.supabase.co';
+      const SB_KEY = 'sb_publishable_MyT_E8FlFlHkyrYa_OORqg_kyizZqtp';
+
+      async function verifyLicenseLive() {
+        const key = (document.getElementById('testLicInput').value || '').trim();
+        const out = document.getElementById('adminLogOutput');
+        if (!key) {
+          out.textContent = '⚠️ 조회할 라이선스 키를 입력해 주세요.';
+          return;
+        }
+        out.textContent = '⏳ 마스터보드 중앙 서버 조회 중...';
+        try {
+          const res = await fetch(SB_URL + '/rest/v1/rpc/verify_masterboard_license', {
+            method: 'POST',
+            headers: {
+              apikey: SB_KEY,
+              Authorization: 'Bearer ' + SB_KEY,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              p_license_key: key,
+              p_device_fingerprint: 'ADMIN-WEB-CONSOLE',
+              p_email: null,
+              p_program_name: '유튜브 트래픽 팩토리',
+              p_device_name: 'IdeaFactory Admin Console',
+            }),
+          });
+          const data = await res.json();
+          out.textContent = '[마스터보드 서버 실시간 응답]\n' + JSON.stringify(data, null, 2);
+        } catch (e) {
+          out.textContent = '⚠️ 통신 오류: ' + e.message;
+        }
+      }
+
+      async function sendTestSecurityAlert() {
+        const out = document.getElementById('adminLogOutput');
+        out.textContent = '⏳ 개발자 보안 서버(submit_error_report)로 위변조 경보 코드 전송 중...';
+        try {
+          const res = await fetch(SB_URL + '/rest/v1/rpc/submit_error_report', {
+            method: 'POST',
+            headers: {
+              apikey: SB_KEY,
+              Authorization: 'Bearer ' + SB_KEY,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              p_program_name: '유튜브 트래픽 팩토리 M',
+              p_program_version: '1.0.2',
+              p_license_key: 'ALERT:SEC-SIG-TAMPER',
+              p_user_email: 'SECURITY_CONSOLE',
+              p_hwid: 'HWID-TEST-CONSOLE',
+              p_error_type: 'SECURITY_ALERT_SEC-SIG-TAMPER',
+              p_message: '🚨 [SEC-SIG-TAMPER] APK 위변조/복제 감지 코드 전송 테스트 (정상 작동 확인)',
+              p_keyword: 'SEC-SIG-TAMPER',
+              p_target_id: 'AdminVerification',
+              p_page_reached: 0,
+              p_details: {
+                incidentCode: 'SEC-SIG-TAMPER',
+                note: '대표님 웹 보안 콘솔에서 발송한 위변조 코드 수신 확인 테스트입니다.',
+              },
+              p_log_content: 'SecurityGuard v2.0 Tamper Telemetry Verification OK',
+            }),
+          });
+          const data = await res.json();
+          out.textContent =
+            '✅ [개발자 서버 코드 전송 완료!]\n마스터보드 리포트 수신 응답:\n' +
+            JSON.stringify(data, null, 2);
+        } catch (e) {
+          out.textContent = '⚠️ 전송 오류: ' + e.message;
+        }
+      }
+    </script>
+  </body>
+</html>
